@@ -1,6 +1,6 @@
 ----------------------------------------
 --SQL Activity Chart.
---Version 1.0.0
+--Version 1.0.1
 --Copyright (C) 2016. This program is licensed under the LGPLv3.
 --
 --How to use:
@@ -222,7 +222,7 @@ from
 	--#4: Key.
 	select
 		20000 + rownumber interval_number
-		,'| '||letter||' | '||rpad(username, 30, ' ')||' | '||sql_id||' | '||rpad(replace(replace(nvl(sql_text, ' '), chr(10), null), chr(13), null), 50, ' ')||' | '||nvl(lpad(counts_per_user_and_sql, 7, ' '), '       ')||' | '||rpad(event_counts, 150, ' ')||' |' chart
+		,'| '||letter||' | '||rpad(username, 30, ' ')||' | '||sql_id||' | '||rpad(replace(replace(replace(nvl(sql_text, ' '), chr(10), null), chr(13), null), chr(9), ' '), 50, ' ')||' | '||nvl(lpad(counts_per_user_and_sql, 7, ' '), '       ')||' | '||rpad(event_counts, 150, ' ')||' |' chart
 	from
 	(
 		--SQL Key - sums and key for the top 52 SQL IDs.
