@@ -1,6 +1,6 @@
 ----------------------------------------
 --SQL Activity Chart.
---Version 1.0.1
+--Version 1.1.0
 --Copyright (C) 2016. This program is licensed under the LGPLv3.
 --
 --How to use:
@@ -11,8 +11,8 @@
 with configuration as
 (
 	select
-		timestamp '2016-06-21 12:00:00' sample_start_time,
-		timestamp '2016-06-21 16:00:00' sample_end_time,
+		timestamp '2017-04-24 08:00:00' sample_start_time,
+		timestamp '2017-04-24 11:00:00' sample_end_time,
 		100 time_chunks
 	from dual
 )
@@ -22,7 +22,9 @@ select chart
 from
 (
 	--#1: Header.
-	select -5 interval_number, 'SQL Activity chart.' chart from dual union all
+	select -7 interval_number, 'SQL Activity chart.' chart from dual union all
+	select -6 interval_number, 'https://github.com/VentechCMS/SQL_Activity_Chart' chart from dual union all
+	select -5 interval_number, '' chart from dual union all
 	select -4 interval_number, 'Generated for '||(select global_name from global_name)||' on '||to_char(sysdate, 'YYYY-MM-DD HH24:MI')||'.' chart from dual union all
 	select -3 interval_number, '' chart from dual union all
 	select -2 interval_number, '  Sample Period    SQL (one case-sensitive letter per active session, see SQL Key at bottom)' chart from dual union all
