@@ -1,4 +1,4 @@
-SQL Activity Chart - 1.0.1
+SQL Activity Chart - 1.1.0
 ============
 
 SQL Activity Chart is an Oracle SQL query that displays all SQL activity for a database for a configurable amount of time.  It's sort of a cross between an AWR report and an ASH report.
@@ -12,6 +12,7 @@ The example below shows all the sections and features.  Reports are usually a fe
 
 
     SQL Activity chart.
+
     Generated for TESTDB on 2016-06-21 16:18.
     
       Sample Period    SQL (one case-sensitive letter per active session, see SQL Key at bottom)
