@@ -1,6 +1,6 @@
 ----------------------------------------
 --SQL Activity Chart.
---Version 1.1.0
+--Version 1.1.1
 --Copyright (C) 2016. This program is licensed under the LGPLv3.
 --
 --How to use:
@@ -213,17 +213,17 @@ from
 	----------------------------------------
 	union all
 	--#3: Key header.
-	select 10001 interval_number, '                 ---------------------------------------------------------------' chart from dual union all
-	select 10002 interval_number, '' chart from dual union all
-	select 10003 interval_number, 'SQL Key - Statements are ordered by most active first' chart from dual union all
-	select 10004 interval_number, '==============================================================================================================================================================================================================================================================================' chart from dual union all
-	select 10005 interval_number, '| ID| Username                       | SQL_ID        | SQL Text                                           | Samples | Sample counts per event  (ordered by most common events first)                                                                                         |' chart from dual union all
-	select 10006 interval_number, '==============================================================================================================================================================================================================================================================================' chart from dual
+	select 1000001 interval_number, '                 ---------------------------------------------------------------' chart from dual union all
+	select 1000002 interval_number, '' chart from dual union all
+	select 1000003 interval_number, 'SQL Key - Statements are ordered by most active first' chart from dual union all
+	select 1000004 interval_number, '==============================================================================================================================================================================================================================================================================' chart from dual union all
+	select 1000005 interval_number, '| ID| Username                       | SQL_ID        | SQL Text                                           | Samples | Sample counts per event  (ordered by most common events first)                                                                                         |' chart from dual union all
+	select 1000006 interval_number, '==============================================================================================================================================================================================================================================================================' chart from dual
 	----------------------------------------
 	union all
 	--#4: Key.
 	select
-		20000 + rownumber interval_number
+		2000000 + rownumber interval_number
 		,'| '||letter||' | '||rpad(username, 30, ' ')||' | '||sql_id||' | '||rpad(replace(replace(replace(nvl(sql_text, ' '), chr(10), null), chr(13), null), chr(9), ' '), 50, ' ')||' | '||nvl(lpad(counts_per_user_and_sql, 7, ' '), '       ')||' | '||rpad(event_counts, 150, ' ')||' |' chart
 	from
 	(
@@ -286,6 +286,6 @@ from
 	----------------------------------------
 	union all
 	--#5: Key footer.
-	select 30000 interval_number, '==============================================================================================================================================================================================================================================================================' chart from dual
+	select 3000000 interval_number, '==============================================================================================================================================================================================================================================================================' chart from dual
 )
 order by interval_number;
