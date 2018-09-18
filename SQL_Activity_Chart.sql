@@ -1,7 +1,7 @@
 ----------------------------------------
 --SQL Activity Chart.
---Version 1.1.1
---Copyright (C) 2016. This program is licensed under the LGPLv3.
+--Version 1.1.2
+--Copyright (C) 2018. This program is licensed under the LGPLv3.
 --
 --How to use:
 --  1. Change sample times and time_chunks in the "configuration" table below
@@ -23,7 +23,7 @@ from
 (
 	--#1: Header.
 	select -7 interval_number, 'SQL Activity chart.' chart from dual union all
-	select -6 interval_number, 'https://github.com/VentechCMS/SQL_Activity_Chart' chart from dual union all
+	select -6 interval_number, 'https://github.com/jonheller1/SQL_Activity_Chart' chart from dual union all
 	select -5 interval_number, '' chart from dual union all
 	select -4 interval_number, 'Generated for '||(select global_name from global_name)||' on '||to_char(sysdate, 'YYYY-MM-DD HH24:MI')||'.' chart from dual union all
 	select -3 interval_number, '' chart from dual union all
