@@ -1,6 +1,6 @@
 ----------------------------------------
 --SQL Activity Chart.
---Version 1.1.2
+--Version 1.2.0
 --Copyright (C) 2018. This program is licensed under the LGPLv3.
 --
 --How to use:
@@ -11,9 +11,12 @@
 with configuration as
 (
 	select
-		timestamp '2017-04-24 08:00:00' sample_start_time,
-		timestamp '2017-04-24 11:00:00' sample_end_time,
-		100 time_chunks
+		systimestamp - 1 sample_start_time,
+		systimestamp     sample_end_time,
+		--Specify absolute times like this:
+		--timestamp '2018-11-16 08:00:00' sample_start_time,
+		--timestamp '2018-11-16 11:00:00' sample_end_time,
+		1440 time_chunks
 	from dual
 )
 ----------------------------------------
