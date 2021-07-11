@@ -6,7 +6,7 @@ SQL Activity Chart is an Oracle SQL query that displays all SQL activity for a d
 The text-only format makes it less pretty than other tuning tools.  But the text format also allows it to fit much more data on a single page, and makes it easier to share.
 
 
-##Example##
+## Example
 
 The example below shows all the sections and features.  Reports are usually a few hundred lines long.  For brevity, some of the large sections with "`...`".
 
