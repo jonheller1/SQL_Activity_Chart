@@ -1,10 +1,11 @@
 ----------------------------------------
 --SQL Activity Chart.
---Version 1.2.0
---Copyright (C) 2018. This program is licensed under the LGPLv3.
+--Version 1.3.0
+--Copyright (C) 2022. This program is licensed under the LGPLv3.
 --
 --How to use:
 --  1. Change sample times and time_chunks in the "configuration" table below
+--    (If there was a database refresh or upgrade, you may need to change the DBID.)
 --  2. Run the query and view results in a fixed-width font.
 --This query may take a while to finish, depending on the time period.
 ----------------------------------------
@@ -14,9 +15,12 @@ with configuration as
 		systimestamp - 1 sample_start_time,
 		systimestamp     sample_end_time,
 		--Specify absolute times like this:
-		--timestamp '2018-11-16 08:00:00' sample_start_time,
-		--timestamp '2018-11-16 11:00:00' sample_end_time,
-		1440 time_chunks
+		--timestamp '2022-04-01 00:00:01' sample_start_time,
+		--timestamp '2022-04-01 03:00:00' sample_end_time,
+		1440 time_chunks,
+		--If this isn't the right DBID, check in DBA_HIST_SNAPSHOT.)
+		(select dbid from v$database) dbid
+		--1307358397 dbid
 	from dual
 )
 ----------------------------------------
@@ -126,7 +130,7 @@ from
 						select username, sql_id, sample_time
 						from dba_hist_active_sess_history
 						join dba_users on dba_hist_active_sess_history.user_id = dba_users.user_id
-						where dbid = (select dbid from v$database) --For the partition pruning.
+						where dbid = (select dbid from configuration) --For the partition pruning.
 							and snap_id in
 							(
 								select /*+ cardinality(24) */ snap_id
@@ -160,7 +164,7 @@ from
 								select username, sql_id, nvl(event, 'CPU') event, count(*) event_count
 								from dba_hist_active_sess_history
 								join dba_users on dba_hist_active_sess_history.user_id = dba_users.user_id
-								where dbid = (select dbid from v$database)
+								where dbid = (select dbid from configuration)
 									and snap_id in
 									(
 										select /*+ cardinality(24) */ snap_id
@@ -188,7 +192,7 @@ from
 					(
 						select sql_id, sql_text
 						from dba_hist_sqltext
-						where dbid = (select dbid from v$database)
+						where dbid = (select dbid from configuration)
 					) sqltext
 						on count_per_user_sql_w_rownum.sql_id = sqltext.sql_id
 				) sql_key
@@ -249,7 +253,7 @@ from
 					select username, sql_id, nvl(event, 'CPU') event, count(*) event_count
 					from dba_hist_active_sess_history
 					join dba_users on dba_hist_active_sess_history.user_id = dba_users.user_id
-					where dbid = (select dbid from v$database)
+					where dbid = (select dbid from configuration)
 						and snap_id in
 						(
 							select /*+ cardinality(24) */ snap_id
@@ -277,7 +281,7 @@ from
 		(
 			select sql_id, sql_text
 			from dba_hist_sqltext
-			where dbid = (select dbid from v$database)
+			where dbid = (select dbid from configuration)
 		) sqltext
 			on count_per_user_sql_w_rownum.sql_id = sqltext.sql_id
 		--Add "OTHER" statements.
